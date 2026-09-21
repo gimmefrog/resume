@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ooiiaannss</title>
+<meta name="description" content="A Taiwan-based studio turning quiet ideas into original characters — keyrings, postcards, and small goods born from boring sunset.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oninisanas.com/">
+<meta property="og:title" content="ooiiaannss">
+<meta property="og:description" content="ooiiaannss">
+<meta property="og:image" content="https://oninisanas.com/metaproperty.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ooiiaannss">
+<meta name="twitter:description" content="ooiiaannss">
+<meta name="twitter:image" content="https://oninisanas.com/metaproperty.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@400;600&family=Inter:wght@400;500;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --paper-deep:#f0f0f0;
+    --ink:#000000;
+    --ink-soft:#555555;
+    --line:#000000;
+    --accent:#171717;
+    --accent-soft:#171717;
+    --olive:#000000;
+    --radius:2px;
+    --header-h:64px;
+    --header-pad-y:40px;
+    --header-pad-x:68px;
+    --menu-icon-font:24px;
+    --menu-icon-w:30px;
+    --menu-icon-h:30px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter","Noto Sans TC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .serif{font-family:"Inter","Noto Sans TC",sans-serif;}
+  ::selection{background:var(--accent); color:var(--paper);}
+
+  header{
+    position:fixed; top:0; left:0; width:100%; z-index:70;
+    display:flex; align-items:center;
+    padding:var(--header-pad-y) var(--header-pad-x);
+    background:transparent;
+    color:#ffffff;
+    transition:color .35s ease;
+  }
+  header.header--light .top-link{ color:#000000; }
+  header.header--light .icon-btn{ color:#000000; }
+  .top-link:hover{ opacity:0.6; }
+
+  .brand{
+    font-family:"Inter","Noto Sans TC",sans-serif;
+    font-size:20px; font-weight:600; letter-spacing:0.02em;
+  }
+  .brand img{height:8px; width:auto; display:block; filter:brightness(0) invert(1); transition:filter .35s ease;}
+  header.header--light .brand img{filter:none;}
+
+  nav.groups{
+    display:flex; gap:28px; align-items:center;
+    margin-left:28px;
+  }
+  .top-link{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    color:#ffffff;
+    transition:color .35s ease;
+  }
+
+  .header-actions{
+    display:flex; align-items:center; gap:18px; font-size:13px;
+    margin-left:auto;
+  }
+  .icon-btn{
+    width:var(--menu-icon-w); height:var(--menu-icon-h);
+    font-size:var(--menu-icon-font);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; border-radius:50%; transition:color .3s; color:inherit;
+    -webkit-tap-highlight-color:transparent;
+    outline:none;
+  }
+  .icon-btn:active, .icon-btn:focus{ background:transparent; }
+  .menu-toggle{display:none;}
+
+  .full-section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .full-section:not(.hero){
+    padding-top:var(--header-h);
+  }
+  .section-bg{
+    position:absolute; inset:0;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    z-index:0;
+  }
+.full-section > *:not(.section-bg):not(.hero-bg){
+  position:relative; z-index:1;
+}
+  #character .section-bg{ background-image:none; }
+  #goods .section-bg{ background-image:none; }
+  #about .section-bg{ background-image:url(about-background.png); }
+
+  /* ---------- 各版面獨立文字顏色/大小設定 ---------- */
+  /* 直接改下面每個區塊的三個數值,只會影響該版面,不影響其他版面 */
+  #character{
+    --panel-title-color:var(--ink);
+    --panel-title-size:18px;
+    --panel-title-weight:700;
+    --panel-text-color:#000000;
+    --panel-text-size:12px;
+    --panel-text-weight:400;
+  }
+  #goods{
+    --panel-title-color:var(--ink);
+    --panel-title-size:18px;
+    --panel-title-weight:700;
+    --panel-text-color:#000000;
+    --panel-text-size:12px;
+    --panel-text-weight:400;
+  }
+  #about{
+    --panel-title-color:#000000;
+    --panel-title-size:18px;
+    --panel-title-weight:700;
+    --panel-text-color:#000000;
+    --panel-text-size:14px;
+    --panel-text-weight:600;
+  }
+
+  .hero{
+    padding:48px 32px 56px;
+    justify-content:flex-end;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image:url(somethree-ver05-sky-3.jpg);
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    animation:float-bg 25s ease-in-out infinite alternate;
+    z-index:0;
+  }
+  @keyframes float-bg{
+    0%   { background-position:40% 45%; }
+    50%  { background-position:55% 58%; }
+    100% { background-position:62% 50%; }
+  }
+
+  .section{padding:88px 32px;}
+  .section-head{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-bottom:36px;
+    gap:12px;
+  }
+  .section-head h2{
+    font-family:"Inter","Noto Sans TC",sans-serif;
+    font-weight:var(--panel-title-weight, 700);
+    font-size:var(--panel-title-size, 18px);
+    color:var(--panel-title-color, var(--ink));
+    text-align:center;
+  }
+  .section-head p{
+    font-weight:var(--panel-text-weight, 400);
+    font-size:var(--panel-text-size, 14px);
+    color:var(--panel-text-color, var(--ink-soft));
+    max-width:360px; line-height:1.7; margin:0 auto;
+    text-align:center;
+  }
+
+  .section-head-row{
+    display:flex; align-items:center; justify-content:space-between;
+    width:100%; max-width:1100px; margin:0 auto 36px;
+  }
+  .section-head-row h2{
+    font-family:"Inter","Noto Sans TC",sans-serif;
+    font-weight:var(--panel-title-weight, 700);
+    font-size:var(--panel-title-size, 18px);
+    color:var(--panel-title-color, var(--ink));
+  }
+  .shop-link{
+    font-size:13px; font-weight:700; letter-spacing:0.05em; color:inherit;
+  }
+  .shop-link:hover{ opacity:0.55; }
+  .shop-link-wrap{ text-align:center; margin-top:28px; }
+
+  .about-block p{
+    font-family:"Inter","Noto Sans TC",sans-serif;
+    font-weight:var(--panel-text-weight, 400);
+    font-size:var(--panel-text-size, 16px);
+    color:var(--panel-text-color, var(--ink-soft));
+    max-width:480px;
+    margin:0 auto;
+    line-height:1.8;
+    text-align:center;
+  }
+
+  .carousel{
+    width:100%; max-width:1100px; margin:0 auto;
+  }
+  .carousel-viewport{
+    overflow:hidden; width:100%;
+  }
+  .carousel-track{
+    display:flex;
+    transition:transform .4s ease;
+  }
+  .carousel-track .tile{
+    flex:0 0 calc(100% / 3);
+    padding:0 12px;
+    box-sizing:border-box;
+    display:flex; flex-direction:column; gap:10px;
+    cursor:default;
+  }
+  .tile-image{
+    position:relative;
+    width:100%;
+    aspect-ratio:4 / 5;
+    overflow:hidden;
+    background:var(--paper-deep);
+  }
+  .tile-image img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .tile-image .img-b{ opacity:0; }
+  .tile:hover .tile-image .img-a{ opacity:0; }
+  .tile:hover .tile-image .img-b{ opacity:1; }
+  .tile.no-swap:hover .tile-image .img-a{ opacity:1; }
+  .tile.no-swap:hover .tile-image .img-b{ opacity:0; }
+
+  .tile{
+    text-align:center;
+  }
+  .tile h3{
+    font-family:"Inter","Noto Sans TC",sans-serif;
+    font-size:13px;
+    font-weight:var(--panel-title-weight, 500);
+    color:var(--panel-title-color, var(--ink));
+    margin-top:10px;
+  }
+  .tile p{
+    font-size:var(--panel-text-size, 12px);
+    font-weight:var(--panel-text-weight, 400);
+    color:var(--panel-text-color, var(--ink-soft));
+    line-height:1.5;
+  }
+
+  .carousel-nav{
+    display:flex; justify-content:center; align-items:center; gap:28px;
+    margin-top:24px;
+  }
+  .car-arrow{
+    background:none; border:none; cursor:pointer;
+    font-size:18px; color:inherit; line-height:1;
+    width:30px; height:30px;
+    display:flex; align-items:center; justify-content:center;
+    padding:0;
+  }
+  .car-arrow:hover{ opacity:0.5; }
+  .car-arrow:disabled{ opacity:0.25; cursor:default; pointer-events:none; }
+
+  @media (max-width:860px){
+    .carousel-track .tile{ flex:0 0 100%; padding:0 34px; }
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:56px 32px 32px;
+    display:flex; flex-direction:column; gap:24px;
+    /* ↓↓↓ 直接改這四個數值,可調整頁尾的色塊/背景圖與文字樣式 ↓↓↓ */
+    --footer-bg-color:transparent;
+    --footer-bg-image:none;
+    --footer-text-color:#000000;
+    --footer-text-size:11px;
+    --footer-text-weight:400;
+    background-color:var(--footer-bg-color);
+    background-image:var(--footer-bg-image);
+    background-size:cover;
+    background-position:center;
+  }
+  .footer-links{
+    display:flex; justify-content:center; align-items:center; gap:20px;
+    margin-bottom:24px;
+  }
+  .footer-links a{
+    font-size:var(--footer-text-size, 11px);
+    font-weight:var(--footer-text-weight, 400);
+    color:var(--footer-text-color, #000000);
+    letter-spacing:0.04em;
+  }
+  .footer-links a:hover{ opacity:0.6; }
+  .footer-bottom{
+    display:flex; flex-direction:column; align-items:center;
+    font-size:var(--footer-text-size, 11px);
+    font-weight:var(--footer-text-weight, 400);
+    color:var(--footer-text-color, #000000);
+    letter-spacing:0.04em;
+    padding:0 24px; gap:12px;
+  }
+
+  .drawer-overlay{
+    position:fixed; inset:0; background:transparent;
+    opacity:0; visibility:hidden; transition:opacity .3s; z-index:40;
+  }
+  .drawer-overlay.open{opacity:1; visibility:visible;}
+  .drawer{
+    position:fixed; left:0; width:100%;
+    top:var(--header-h);   /* 由JS依實際頁首高度動態覆寫,這裡是備用值 */
+    height:auto; max-height:calc(85vh - var(--header-h));
+    background-color:transparent; color:#ffffff;
+    background-size:100% 100%;
+    background-position:center;
+    z-index:45;   /* 低於頁首(70),頁首Logo與圖示永遠在最上層不被蓋住 */
+    opacity:0; visibility:hidden; transform:translateY(-12px);
+    transition:opacity .3s ease, transform .3s ease, background-color .3s ease, color .3s ease;
+    padding:2px var(--header-pad-x) 40px;
+    overflow-y:auto;
+    display:flex; flex-direction:column;
+  }
+  .drawer.open{ opacity:1; visibility:visible; transform:translateY(0); }
+  .drawer.drawer--light{
+    background-color:transparent; color:#000000;
+    --drawer-bg-image:url(drawer.png);   /* 想加選單背景圖,把none換成 url('圖片檔名.jpg') */
+    background-image:var(--drawer-bg-image);
+  }
+  .drawer-group{
+    margin-top:8px;
+    display:flex; flex-direction:column; align-items:flex-start; gap:12px;
+  }
+  .drawer-group a{
+    font-size:52px; font-weight:700; color:inherit;
+    text-align:left; padding:0; border:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  @media (max-width:860px){
+    nav.groups{display:none;}
+    .menu-toggle{display:flex;}
+  }
+  @media (max-width:520px){
+    :root{
+      --header-pad-y:15px;
+      --header-pad-x:25px;
+    }
+    .hero{padding:32px 18px 40px;}
+    .section{padding:56px 18px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <a href="#top" class="brand" id="logoLink">
+    <img src="logo black.png" alt="on in is an as" style="height:8px; width:auto; display:block;">
+  </a>
+
+  <nav class="groups">
+    <a href="#character" class="top-link">character</a>
+    <a href="#goods" class="top-link">goods</a>
+    <a href="#about" class="top-link">about</a>
+  </nav>
+
+  <div class="header-actions">
+    <div class="icon-btn menu-toggle" id="menuToggle" title="選單">☰</div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-group">
+    <a href="#character">character</a>
+    <a href="#goods">goods</a>
+    <a href="#about">about</a>
+  </div>
+</div>
+
+<section class="hero full-section" id="top" data-header="dark">
+  <div class="hero-bg"></div>
+</section>
+
+<section class="section full-section" id="character" data-header="light">
+  <div class="section-bg"></div>
+  <div class="section-head">
+    <h2>character.</h2>
+  </div>
+
+  <div class="carousel" data-carousel>
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <div class="tile no-swap">
+          <div class="tile-image">
+            <img class="img-a" src="somethree-01.jpg" alt="Somethree">
+          </div>
+          <h3>Somethree</h3>
+          <p>I am a bear.</p>
+        </div>
+        <div class="tile no-swap">
+          <div class="tile-image">
+            <img class="img-a" src="someone-01.jpg" alt="Someone">
+          </div>
+          <h3>Someone</h3>
+          <p>I am a rabbit.</p>
+        </div>
+        <div class="tile no-swap">
+          <div class="tile-image">
+            <img class="img-a" src="somefour-01.jpg" alt="Somefour">
+          </div>
+          <h3>Somefour</h3>
+          <p>I am a dog.</p>
+        </div>
+        <div class="tile no-swap">
+          <div class="tile-image">
+            <img class="img-a" src="Pimsocko-cc.gif" alt="Pimsocko">
+          </div>
+          <h3>Pimsocko</h3>
+          <p>I am a Sock Alien.</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button type="button" class="car-arrow car-prev" aria-label="上一個">‹</button>
+      <button type="button" class="car-arrow car-next" aria-label="下一個">›</button>
+    </div>
+  </div>
+</section>
+
+<section class="section full-section" id="goods" data-header="light">
+  <div class="section-bg"></div>
+  <div class="section-head">
+    <h2>goods.</h2>
+  </div>
+
+  <div class="carousel" data-carousel>
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <div class="tile">
+          <div class="tile-image">
+            <img class="img-a" src="front.png" alt="Somethree Keyring">
+            <img class="img-b" src="back.png" alt="Somethree Keyring">
+          </div>
+          <h3>Somethree Keyring</h3>
+          <p>NT$680</p>
+        </div>
+        <div class="tile">
+          <div class="tile-image">
+            <img class="img-a" src="postcard-t.png" alt="tak-kang huann-hí Postcard">
+            <img class="img-b" src="postcard-b.png" alt="tak-kang huann-hí Postcard">
+          </div>
+          <h3>tak-kang huann-hí Postcard</h3>
+          <p>NT$60</p>
+        </div>
+        <div class="tile">
+          <div class="tile-image">
+            <img class="img-a" src="postcard-l.png" alt="luān-tshau-tshau Postcard">
+            <img class="img-b" src="postcard-b.png" alt="luān-tshau-tshau Postcard">
+          </div>
+          <h3>luān-tshau-tshau Postcard</h3>
+          <p>NT$60</p>
+        </div>
+        <div class="tile">
+          <div class="tile-image">
+            <img class="img-a" src="Pimsocko-a.png" alt="Alien Pimsocko">
+            <img class="img-b" src="Pimsocko-b.png" alt="Alien Pimsocko">
+          </div>
+          <h3>Alien Pimsocko</h3>
+          <p>NT$450</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button type="button" class="car-arrow car-prev" aria-label="上一個">‹</button>
+      <button type="button" class="car-arrow car-next" aria-label="下一個">›</button>
+    </div>
+  </div>
+
+  <div class="shop-link-wrap">
+    <a href="https://shopee.tw/buorigin#product_list" target="_blank" rel="noopener" class="shop-link">SHOP →</a>
+  </div>
+</section>
+
+<section class="about-block full-section" id="about" data-header="light">
+  <div class="section-bg"></div>
+  <div class="section-head">
+    <h2>about.</h2>
+    <p>A space built on boring ⇁ born.</p>
+  </div>
+</section>
+
+<footer id="siteFooter" data-header="light">
+  <div class="footer-links">
+    <a href="https://shopee.tw/buorigin#product_list" target="_blank" rel="noopener">Shop</a>
+    <a href="https://www.instagram.com/oninisanas/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer-bottom">
+    <span>Copyright © on in is an as All rights reserved.</span>
+    <span>Born in Taiwan.</span>
+  </div>
+</footer>
+
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  const header = document.getElementById('siteHeader');
+  const menuToggle = document.getElementById('menuToggle');
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const logoLink = document.getElementById('logoLink');
+  let drawerOpen = false;
+
+  function positionDrawer(){
+    drawer.style.top = header.offsetHeight + 'px';
+  }
+  positionDrawer();
+  window.addEventListener('resize', positionDrawer);
+
+  function openDrawer(){
+    drawerOpen = true;
+    if (header.classList.contains('header--light')) {
+      drawer.classList.add('drawer--light');
+    } else {
+      drawer.classList.remove('drawer--light');
+    }
+    positionDrawer();
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    menuToggle.textContent = '×';
+  }
+  function closeDrawer(){
+    drawerOpen = false;
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    menuToggle.textContent = '☰';
+  }
+  function toggleDrawer(){
+    if (drawerOpen) closeDrawer(); else openDrawer();
+  }
+  menuToggle.addEventListener('click', toggleDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  document.querySelectorAll('[data-header]').forEach(sec => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (sec.dataset.header === 'dark') {
+            header.classList.remove('header--light');
+          } else {
+            header.classList.add('header--light');
+          }
+        }
+      });
+    }, { threshold: 0.35 });
+    obs.observe(sec);
+  });
+
+  const panels = [
+    document.getElementById('top'),
+    document.getElementById('character'),
+    document.getElementById('goods'),
+    document.getElementById('about'),
+    document.getElementById('siteFooter')
+  ];
+
+  let isAnimating = false;
+
+  function getCurrentPanelIndex(){
+    let closest = 0, minDist = Infinity;
+    panels.forEach((p, i) => {
+      const dist = Math.abs(p.getBoundingClientRect().top);
+      if (dist < minDist){ minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  function goToPanel(index){
+    if (drawerOpen) closeDrawer();
+    index = Math.max(0, Math.min(panels.length - 1, index));
+    isAnimating = true;
+    panels[index].scrollIntoView({ behavior:'smooth' });
+    setTimeout(() => { isAnimating = false; }, 850);
+  }
+
+  /* 手機選單連結:直接指定跳轉目標面板,不依賴瀏覽器原生錨點跳轉 */
+  document.querySelectorAll('.drawer-group a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = a.getAttribute('href').slice(1);
+      const idx = panels.findIndex(p => p && p.id === targetId);
+      closeDrawer();
+      if (idx !== -1) {
+        setTimeout(() => goToPanel(idx), 60);
+      }
+    });
+  });
+
+  /* 桌面頂部選單連結:同樣改用JS導航,不讓網址列出現 #character 這類錨點 */
+  document.querySelectorAll('.top-link').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = a.getAttribute('href').slice(1);
+      const idx = panels.findIndex(p => p && p.id === targetId);
+      if (idx !== -1) goToPanel(idx);
+    });
+  });
+
+  /* 點擊Logo:確實回到首圖(index 0),並清除網址上殘留的 # 錨點 */
+  if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToPanel(0);
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    });
+  }
+
+  /* 頁面載入時:清除網址殘留的錨點,並確保一定從首圖(最上方)開始 */
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  });
+
+  window.addEventListener('wheel', (e) => {
+    if (isAnimating) { e.preventDefault(); return; }
+    e.preventDefault();
+    const current = getCurrentPanelIndex();
+    goToPanel(current + (e.deltaY > 0 ? 1 : -1));
+  }, { passive:false });
+
+  document.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+}, { passive: false });
+
+  let pageTouchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    pageTouchStartY = e.touches[0].clientY;
+  }, { passive:true });
+
+  document.addEventListener('touchend', (e) => {
+    if (isAnimating) return;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = pageTouchStartY - touchEndY;
+    if (Math.abs(diff) < 40) return;
+    const current = getCurrentPanelIndex();
+    goToPanel(current + (diff > 0 ? 1 : -1));
+  }, { passive:true });
+
+  function initCarousel(container){
+    const track = container.querySelector('.carousel-track');
+    const tiles = Array.from(track.children);
+    const total = tiles.length;
+    let index = 0;
+
+    function visibleCount(){
+      return window.innerWidth <= 860 ? 1 : 3;
+    }
+    function maxIndex(){
+      return Math.max(0, total - visibleCount());
+    }
+    const prevBtn = container.querySelector('.car-prev');
+    const nextBtn = container.querySelector('.car-next');
+
+    function update(){
+      const itemWidth = 100 / visibleCount();
+      track.style.transform = `translateX(-${index * itemWidth}%)`;
+      prevBtn.disabled = index <= 0;
+      nextBtn.disabled = index >= maxIndex();
+    }
+    function next(){
+      if (index >= maxIndex()) return;   // 已在最後,不循環
+      index += 1;
+      update();
+    }
+    function prev(){
+      if (index <= 0) return;   // 已在開頭,不循環
+      index -= 1;
+      update();
+    }
+
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+    window.addEventListener('resize', () => {
+      index = Math.min(index, maxIndex());
+      update();
+    });
+
+    let sx = 0, sy = 0;
+    track.addEventListener('touchstart', (e) => {
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive:true });
+
+    track.addEventListener('touchend', (e) => {
+      const dx = sx - e.changedTouches[0].clientX;
+      const dy = sy - e.changedTouches[0].clientY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
+        e.stopPropagation();
+        if (dx > 0) next(); else prev();
+      }
+    }, { passive:true });
+
+    update();
+  }
+
+  document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+</script>
+
+</body>
+</html>
